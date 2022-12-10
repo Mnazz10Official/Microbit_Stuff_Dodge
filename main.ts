@@ -12,18 +12,22 @@ function create_enemy () {
 input.onButtonPressed(Button.B, function () {
     sprite.change(LedSpriteProperty.X, 1)
 })
+let score = 0
 let enemy: game.LedSprite = null
 let sprite: game.LedSprite = null
 sprite = game.createSprite(2, 4)
 create_enemy()
 basic.forever(function () {
     if (enemy.isTouchingEdge()) {
+        score += 1
         enemy.delete()
         create_enemy()
     }
 })
 basic.forever(function () {
     if (enemy.isTouching(sprite)) {
+        game.setScore(score)
+        basic.pause(100)
         game.gameOver()
     }
 })
